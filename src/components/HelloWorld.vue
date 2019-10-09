@@ -47,8 +47,9 @@
     </div>
     <div class="userform_item1">
       <p class="userform_span1">
-        现在住的房子入住时间
-        <span class="sp">（什么时间住进来的）</span>
+        <!-- 现在住的房子入住时间 -->
+        来京时间
+        <span class="sp">（什么时间来北京的）</span>
         <span class="red">*</span>
         <el-date-picker v-model="live_time" type="date" placeholder="年-月-日" class="userform_inp1"></el-date-picker>
       </p>

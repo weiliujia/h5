@@ -52,8 +52,9 @@
     </div>
     <div class="userform_item1">
       <p class="userform_span1">
-        现在住的房子入住时间
-        <span class="sp">（什么时间住进来的）</span>
+        <!-- 现在住的房子入住时间 -->
+        来京时间
+        <span class="sp">（什么时间来北京的）</span>
         <span class="red">*</span>
       </p>
       <!-- <el-date-picker v-model="live_time" type="date" placeholder="年-月-日" class="userform_inp1"></el-date-picker> -->
@@ -440,7 +441,7 @@
     <div class="userform_item1">
       <p class="userform_span1">
         手机号码
-        <!-- <soan class="red">*</soan> -->
+        <!-- <span class="red">*</span> -->
       </p>
       <el-input
         v-model="spouse_phone"
@@ -473,7 +474,7 @@
     <div class="userform_item1">
       <p class="userform_span1">
         手机号码
-        <soan class="red">*</soan>
+        <span class="red">*</span>
       </p>
       <el-input
         v-model="kinship_phone"
@@ -488,16 +489,16 @@
       <p class="userform_span1">
         亲属关系
         <span class="sp">（父亲，母亲，哥哥，姐姐等）</span>
-        <soan class="red">*</soan>
+        <span class="red">*</span>
       </p>
       <el-input v-model="kinship_relev" class="userform_inp1" v-on:blur="kinship_relevs"></el-input>
       <p class="txt_red" ref="red26">请填写此项</p>
     </div>
     <!-- ----------------- -->
-    <div class="userform_item1">
+    <div class="userform_itemm1">
       <p class="userform_span1">
         家庭具体地址(选填)
-        <soan class="red">*</soan>
+        <!-- <span class="red">*</span> -->
       </p>
       <el-input v-model="kinship_addr" class="userform_inp1" v-on:blur="kinship_addrs"></el-input>
       <p class="txt_red" ref="red27">请填写此项</p>
@@ -520,7 +521,7 @@
     <div class="userform_item1">
       <p class="userform_span1">
         手机号码
-        <soan class="work_phone">*</soan>
+        <span class="red">*</span>
       </p>
       <el-input v-model="work_phone" class="userform_inp1" type="number" v-on:blur="work_phones"></el-input>
       <p class="txt_red" ref="red28">请填写此项</p>
@@ -528,17 +529,17 @@
     <!--  -->
     <div class="userform_item1">
       <p class="userform_span1">
-        部门
-        <span class="work_section">*</span>
+        部门（选填）
+        <!-- <span class="red">*</span> -->
       </p>
       <el-input v-model="work_section" class="userform_inp1" v-on:blur="work_sections"></el-input>
       <p class="txt_red" ref="red29">请填写此项</p>
     </div>
     <!-- ----------------- -->
-    <div class="userform_item1">
+    <div class="userform_itemm1">
       <p class="userform_span1">
-        职务
-        <soan class="red">*</soan>
+        职务（选填）
+        <!-- <span class="red">*</span> -->
       </p>
       <el-input v-model="work_job" class="userform_inp1" v-on:blur="work_jobs"></el-input>
       <p class="txt_red" ref="red30">请填写此项</p>
@@ -546,7 +547,7 @@
     <!--  -->
     <div class="form1">
       <div class="userform_con1">
-        <p>其它联系人朋友</p>
+        <p>其它联系人（例如:同学，朋友...等）</p>
       </div>
     </div>
     <div class="userform_item1">
@@ -601,13 +602,16 @@
       </div>
       <p class="txt_red" ref="red34">请填写此项</p>
     </div>
-    <el-button class="form_btn" @click.native="add" v-if="this.code===''" :disabled="isDisable">确认提交</el-button>
-    <el-button class="form_btn1" v-if="this.code===1">已提交</el-button>
+    <el-button class="form_btn" @click.native="add" v-if="this.code==''" :disabled="isDisable">确认提交</el-button>
+    <el-button class="form_btn1" v-if="this.code==1">已提交</el-button>
   </div>
 </template>
 
 <script>
-import "@/home.css";
+
+var timestamp = Date.parse(new Date());
+console.log(timestamp)
+import '@/home.css';
 import * as apis from "@/api/apis.js";
 import Qs from "qs";
 import { Loading } from "element-ui";
@@ -849,79 +853,81 @@ export default {
       }
     }
 
-    this.live_type = localStorage.getItem("radio");
-    this.marriage = localStorage.getItem("radio01");
-    this.educa = localStorage.getItem("radio02");
-    this.is_car = localStorage.getItem("radio03");
-    this.is_house = localStorage.getItem("radio04");
-    this.is_civil = localStorage.getItem("radio05");
-    this.position_level = localStorage.getItem("radio06");
-    this.is_clear = localStorage.getItem("radio07");
+    this.live_type = localStorage.getItem("radio")||"";
+    this.marriage = localStorage.getItem("radio01")||"";
+    this.educa = localStorage.getItem("radio02")||"";
+    this.is_car = localStorage.getItem("radio03")||"";
+    this.is_house = localStorage.getItem("radio04")||"";
+    this.is_civil = localStorage.getItem("radio05")||"";
+    this.position_level = localStorage.getItem("radio06")||"";
+    this.is_clear = localStorage.getItem("radio07")||"";
 
-    this.radio = localStorage.getItem("radio");
-    this.radio01 = localStorage.getItem("radio01");
-    this.radio02 = localStorage.getItem("radio02");
-    this.radio03 = localStorage.getItem("radio03");
-    this.radio04 = localStorage.getItem("radio04");
-    this.radio05 = localStorage.getItem("radio05");
-    this.radio06 = localStorage.getItem("radio06");
-    this.radio07 = localStorage.getItem("radio07");
+    this.wages_six = localStorage.getItem("radio09")||"";
+    this.social_six = localStorage.getItem("radio10")||"";
+    this.fund_six = localStorage.getItem("radio11")||"";
+ 
 
-    this.radio09 = localStorage.getItem("radio09");
-    this.radio10 = localStorage.getItem("radio10");
-    this.radio11 = localStorage.getItem("radio11");
+    this.radio = localStorage.getItem("radio")||"";
+    this.radio01 = localStorage.getItem("radio01")||"";
+    this.radio02 = localStorage.getItem("radio02")||"";
+    this.radio03 = localStorage.getItem("radio03")||"";
+    this.radio04 = localStorage.getItem("radio04")||"";
+    this.radio05 = localStorage.getItem("radio05")||"";
+    this.radio06 = localStorage.getItem("radio06")||"";
+    this.radio07 = localStorage.getItem("radio07")||"";
+
+    this.radio09 = localStorage.getItem("radio09")||"";
+    this.radio10 = localStorage.getItem("radio10")||"";
+    this.radio11 = localStorage.getItem("radio11")||"";
     console.log(this.radio);
 
-    this.name = localStorage.getItem("name");
-    this.idcard = localStorage.getItem("idcard");
-    this.phone = localStorage.getItem("phone");
-    this.quoat = localStorage.getItem("quoat");
-    this.use = localStorage.getItem("use");
-    this.live_time_n = localStorage.getItem("live_time_n");
-    this.live_time_y = localStorage.getItem("live_time_y");
-    this.rent = localStorage.getItem("rent");
+    this.name = localStorage.getItem("name")||"";
+    this.idcard = localStorage.getItem("idcard")||"";
+    this.phone = localStorage.getItem("phone")||"";
+    this.quoat = localStorage.getItem("quoat")||"";
+    this.use = localStorage.getItem("use")||"";
+    this.live_time_n = localStorage.getItem("live_time_n")||"";
+    this.live_time_y = localStorage.getItem("live_time_y")||"";
+    this.rent = localStorage.getItem("rent")||"";
 
-    this.is_children = localStorage.getItem("is_children");
-    this.live_address = localStorage.getItem("live_address");
-    this.unit_name = localStorage.getItem("unit_name");
-    this.unit_tel = localStorage.getItem("unit_tel");
-    this.unit_address = localStorage.getItem("unit_address");
+    this.is_children = localStorage.getItem("is_children")||"";
+    this.live_address = localStorage.getItem("live_address")||"";
+    this.unit_name = localStorage.getItem("unit_name")||"";
+    this.unit_tel = localStorage.getItem("unit_tel")||"";
+    this.unit_address = localStorage.getItem("unit_address")||"";
 
-    this.branch = localStorage.getItem("branch");
-    this.job = localStorage.getItem("job");
-    this.initia_n = localStorage.getItem("initia_n");
-    this.initia_y = localStorage.getItem("initia_y");
-    this.income = localStorage.getItem("income");
+    this.branch = localStorage.getItem("branch")||"";
+    this.job = localStorage.getItem("job")||"";
+    this.initia_n = localStorage.getItem("initia_n")||"";
+    this.initia_y = localStorage.getItem("initia_y")||"";
+    this.income = localStorage.getItem("income")||"";
 
-    this.spouse_name = localStorage.getItem("spouse_name");
-    this.spouse_phone = localStorage.getItem("spouse_phone");
-    this.spouse_company = localStorage.getItem("spouse_company");
-    this.kinship_name = localStorage.getItem("kinship_name");
-    this.kinship_phone = localStorage.getItem("kinship_phone");
-    this.kinship_relev = localStorage.getItem("kinship_relev");
-    this.kinship_addr = localStorage.getItem("kinship_addr");
+    this.spouse_name = localStorage.getItem("spouse_name")||"";
+    this.spouse_phone = localStorage.getItem("spouse_phone")||"";
+    this.spouse_company = localStorage.getItem("spouse_company")||"";
+    this.kinship_name = localStorage.getItem("kinship_name")||"";
+    this.kinship_phone = localStorage.getItem("kinship_phone")||"";
+    this.kinship_relev = localStorage.getItem("kinship_relev")||"";
+    this.kinship_addr = localStorage.getItem("kinship_addr")||"";
 
-    this.work_name = localStorage.getItem("work_name");
-    this.work_phone = localStorage.getItem("work_phone");
-    this.work_section = localStorage.getItem("work_section");
-    this.work_job = localStorage.getItem("work_job");
-    this.liaison_name = localStorage.getItem("liaison_name");
-    this.liaison_phone = localStorage.getItem("liaison_phone");
-    this.liaison_relev = localStorage.getItem("liaison_relev");
+    this.work_name = localStorage.getItem("work_name")||"";
+    this.work_phone = localStorage.getItem("work_phone")||"";
+    this.work_section = localStorage.getItem("work_section")||"";
+    this.work_job = localStorage.getItem("work_job")||"";
+    this.liaison_name = localStorage.getItem("liaison_name")||"";
+    this.liaison_phone = localStorage.getItem("liaison_phone")||"";
+    this.liaison_relev = localStorage.getItem("liaison_relev")||"";
 
-    this.wages_six = localStorage.getItem("wages_six");
-    this.social_six = localStorage.getItem("social_six");
-    this.fund_six = localStorage.getItem("fund_six");
+    // this.wages_six = localStorage.getItem("wages_six")||"";
+    // this.social_six = localStorage.getItem("social_six")||"";
+    // this.fund_six = localStorage.getItem("fund_six")||"";
 
-    this.finance = localStorage.getItem("finance");
-    this.sesame = localStorage.getItem("sesame");
+    this.finance = localStorage.getItem("finance")||"";
+    this.sesame = localStorage.getItem("sesame")||"";
 
     this.uid = uid;
   },
-  created(){
-    console.log(this.data)
-     console.log(this.arr)
-  },
+
   methods: {
     onRadioChange(item) {
       console.log("item", item);
@@ -984,6 +990,7 @@ export default {
       console.log(event.target.value);
       let a = event.value;
       localStorage.setItem("name", event.target.value);
+      
     },
     idcards(event) {
       localStorage.setItem("idcard", event.target.value);
@@ -1088,8 +1095,9 @@ export default {
       localStorage.setItem("sesame", event.target.value);
     },
     async add() {
-      await apis;
-      if (this.name === "") {
+      console.log(this.name+"0000")
+      if (this.name == "") {
+        console.log(1222222222)
         this.$refs.red.style.display = "block";
         // this.$refs.inpred.style.border = " 1px solid red !important";
         this.$dialog.toast({
@@ -1101,7 +1109,8 @@ export default {
         console.log(this.$refs.inpred);
         this.$refs.red.style.display = "none";
       }
-      if (this.idcard === "") {
+      if (this.idcard == "") {
+         console.log(1222)
         this.$refs.red1.style.display = "block";
         this.$dialog.toast({
           mes: "请输入身份证号",
@@ -1111,7 +1120,7 @@ export default {
       } else {
         this.$refs.red1.style.display = "none";
       }
-      if (this.phone === "") {
+      if (this.phone == "") {
         this.$refs.red2.style.display = "block";
         this.$dialog.toast({
           mes: "请输入手机号",
@@ -1121,7 +1130,7 @@ export default {
       } else {
         this.$refs.red2.style.display = "none";
       }
-      if (this.quoat === "") {
+      if (this.quoat == "") {
         this.$refs.red02.style.display = "block";
         this.$dialog.toast({
           mes: "请输入贷款额度",
@@ -1131,7 +1140,7 @@ export default {
       } else {
         this.$refs.red02.style.display = "none";
       }
-      if (this.use === "") {
+      if (this.use == "") {
         this.$refs.red3.style.display = "block";
         this.$dialog.toast({
           mes: "请输入贷款用途",
@@ -1141,27 +1150,27 @@ export default {
       } else {
         this.$refs.red3.style.display = "none";
       }
-      if (this.live_time_n === "") {
+      if (this.live_time_n == "") {
         this.$refs.red4.style.display = "block";
         this.$dialog.toast({
-          mes: "请选择入住年份",
+          mes: "请输入来京年份",
           timeout: 1500
         });
         return;
       } else {
         this.$refs.red4.style.display = "none";
       }
-      if (this.live_time_y === "") {
+      if (this.live_time_y == "") {
         this.$refs.red4.style.display = "block";
         this.$dialog.toast({
-          mes: "请选择入住月份",
+          mes: "请输入来京月份",
           timeout: 1500
         });
         return;
       } else {
         this.$refs.red4.style.display = "none";
       }
-      // if (this.live_time_r === "") {
+      // if (this.live_time_r == "") {
       //   this.$refs.red4.style.display = "block";
       //   this.$dialog.toast({
       //     mes: "请选择入住日期",
@@ -1172,7 +1181,7 @@ export default {
       // {
       //   this.$refs.red4.style.display = "none";
       // }
-      if (this.live_type === "") {
+      if (this.live_type == "") {
         this.$refs.red5.style.display = "block";
         this.$dialog.toast({
           mes: "请选择居住类型",
@@ -1182,323 +1191,7 @@ export default {
       } else {
         this.$refs.red5.style.display = "none";
       }
-      // if (this.rent === "") {
-      //   this.$refs.red6.style.display = "block";
-      //   this.$dialog.toast({
-      //     mes: "请填写每月租金",
-      //     timeout: 1500
-      //   });
-      //   return;
-      // } else {
-      //   this.$refs.red6.style.display = "none";
-      // }
-      if (this.marriage === "") {
-        this.$refs.red7.style.display = "block";
-        this.$dialog.toast({
-          mes: "请选择婚姻状况",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red7.style.display = "none";
-      }
-      if (this.educa === "") {
-        this.$refs.red8.style.display = "block";
-        this.$dialog.toast({
-          mes: "请选择学历",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red8.style.display = "none";
-      }
-      if (this.is_car === "") {
-        this.$refs.red9.style.display = "block";
-        this.$dialog.toast({
-          mes: "请选择是否有车",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red9.style.display = "none";
-      }
-      if (this.is_house === "") {
-        this.$refs.red10.style.display = "block";
-        this.$dialog.toast({
-          mes: "请选择是否有房",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red10.style.display = "none";
-      }
-      if (this.is_children === "") {
-        this.$refs.red11.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您的孩子",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red11.style.display = "none";
-      }
-      if (this.live_address === "") {
-        this.$refs.red12.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您的现居住地",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red12.style.display = "none";
-      }
-      if (this.unit_name === "") {
-        this.$refs.red13.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您的工作单位",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red13.style.display = "none";
-      }
-
-      if (this.unit_tel === "") {
-        this.$refs.red14.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写单位电话",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red14.style.display = "none";
-      }
-      if (this.unit_address === "") {
-        this.$refs.red15.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写公司地址",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red15.style.display = "none";
-      }
-      if (this.is_civil === "") {
-        this.$refs.red16.style.display = "block";
-        this.$dialog.toast({
-          mes: "您是否是公务员",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red16.style.display = "none";
-      }
-      if (this.position_level === "") {
-        this.$refs.red17.style.display = "block";
-        this.$dialog.toast({
-          mes: "请选择职位级别",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red17.style.display = "none";
-      }
-      if (this.branch === "") {
-        this.$refs.red017.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写部门",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red017.style.display = "none";
-      }
-      if (this.job === "") {
-        this.$refs.red18.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写职务",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red18.style.display = "none";
-      }
-      if (this.initia_n === "") {
-        this.$refs.red19.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写入职年份",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red19.style.display = "block";
-      }
-      if (this.initia_y === "") {
-        this.$refs.red19.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写入职月份",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red19.style.display = "none";
-      }
-      // if (this.initia_r === "") {
-      //   this.$refs.red19.style.display = "block";
-      //   this.$dialog.toast({
-      //     mes: "请填写入职日期",
-      //     timeout: 1500
-      //   });
-      //   return;
-      // } else
-      // {
-      //   this.$refs.red19.style.display = "none";
-      // }
-      if (this.income === "") {
-        this.$refs.red20.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您的月薪",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red20.style.display = "none";
-      }
-      // if (this.marriage === "已婚" || this.marriage === "再婚") {
-      //   if (this.spouse_name === "") {
-      //     this.$refs.red21.style.display = "block";
-      //     this.$dialog.toast({
-      //       mes: "请填写您配偶的姓名",
-      //       timeout: 1500
-      //     });
-      //     return;
-      //   } else {
-      //     this.$refs.red21.style.display = "none";
-      //   }
-      //   if (this.spouse_phone === "") {
-      //     this.$refs.red22.style.display = "block";
-      //     this.$dialog.toast({
-      //       mes: "请填写您配偶的手机号",
-      //       timeout: 1500
-      //     });
-      //     return;
-      //   } else {
-      //     this.$refs.red22.style.display = "none";
-      //   }
-      // }
-      if (this.kinship_name === "") {
-        this.$refs.red24.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您亲属的姓名",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red24.style.display = "none";
-      }
-      if (this.kinship_phone === "") {
-        this.$refs.red25.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您亲属的手机号码",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red25.style.display = "none";
-      }
-      if (this.kinship_relev === "") {
-        this.$refs.red26.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您亲属关系",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red26.style.display = "none";
-      }
-      if (this.work_name === "") {
-        this.$refs.red027.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您同事的姓名",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red027.style.display = "none";
-      }
-      if (this.work_phone === "") {
-        this.$refs.red28.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您同事的电话",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red28.style.display = "none";
-      }
-      if (this.work_section === "") {
-        this.$refs.red29.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您同事的部门",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red29.style.display = "none";
-      }
-      if (this.work_job === "") {
-        this.$refs.red30.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您同事职务",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red30.style.display = "none";
-      }
-      if (this.liaison_name === "") {
-        this.$refs.red31.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您朋友的姓名",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red31.style.display = "none";
-      }
-      if (this.liaison_phone === "") {
-        this.$refs.red32.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您朋友的手机号",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red32.style.display = "none";
-      }
-      if (this.liaison_relev === "") {
-        this.$refs.red33.style.display = "block";
-        this.$dialog.toast({
-          mes: "请填写您跟朋友的关系",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red33.style.display = "none";
-      }
-      if (this.is_clear === "") {
-        this.$refs.red34.style.display = "block";
-        //  this.$refs.red33.style.display = "block";
-        this.$dialog.toast({
-          mes: "亲属是否知道贷款",
-          timeout: 1500
-        });
-        return;
-      } else {
-        this.$refs.red34.style.display = "none";
-      }
-
-      if (this.wages_six === "") {
+       if (this.wages_six == "") {
         this.$refs.red40.style.display = "block";
         //  this.$refs.red33.style.display = "block";
         this.$dialog.toast({
@@ -1510,7 +1203,7 @@ export default {
         this.$refs.red40.style.display = "none";
       }
 
-      if (this.social_six === "") {
+      if (this.social_six == "") {
         this.$refs.red41.style.display = "block";
         //  this.$refs.red33.style.display = "block";
         this.$dialog.toast({
@@ -1521,7 +1214,7 @@ export default {
       } else {
         this.$refs.red41.style.display = "none";
       }
-      if (this.fund_six === "") {
+      if (this.fund_six == "") {
         this.$refs.red42.style.display = "block";
         //  this.$refs.red33.style.display = "block";
         this.$dialog.toast({
@@ -1532,29 +1225,409 @@ export default {
       } else {
         this.$refs.red42.style.display = "none";
       }
-      if (this.finance === "") {
-        this.$refs.red43.style.display = "block";
-        //  this.$refs.red33.style.display = "block";
+      // if (this.finance == "") {
+      //   this.$refs.red43.style.display = "block";
+      //   //  this.$refs.red33.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请输入微粒贷额度",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red43.style.display = "none";
+      // }
+      // if (this.sesame == "") {
+      //   this.$refs.red44.style.display = "block";
+      //   //  this.$refs.red33.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请输入芝麻分",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red44.style.display = "none";
+      // }
+
+
+
+
+
+
+
+      
+      // if (this.rent == "") {
+      //   this.$refs.red6.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请填写每月租金",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red6.style.display = "none";
+      // }
+      if (this.marriage == "") {
+        this.$refs.red7.style.display = "block";
         this.$dialog.toast({
-          mes: "请输入微粒贷额度",
+          mes: "请选择婚姻状况",
           timeout: 1500
         });
         return;
       } else {
-        this.$refs.red43.style.display = "none";
+        this.$refs.red7.style.display = "none";
       }
-      if (this.sesame === "") {
-        this.$refs.red44.style.display = "block";
-        //  this.$refs.red33.style.display = "block";
+      if (this.educa == "") {
+        this.$refs.red8.style.display = "block";
         this.$dialog.toast({
-          mes: "请输入芝麻分",
+          mes: "请选择学历",
           timeout: 1500
         });
         return;
       } else {
-        this.$refs.red44.style.display = "none";
+        this.$refs.red8.style.display = "none";
       }
-      //
+      if (this.is_car == "") {
+        this.$refs.red9.style.display = "block";
+        this.$dialog.toast({
+          mes: "请选择是否有车",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red9.style.display = "none";
+      }
+      if (this.is_house == "") {
+        this.$refs.red10.style.display = "block";
+        this.$dialog.toast({
+          mes: "请选择是否有房",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red10.style.display = "none";
+      }
+      if (this.is_children == "") {
+        this.$refs.red11.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您的孩子",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red11.style.display = "none";
+      }
+      if (this.live_address == "") {
+        this.$refs.red12.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您的现居住地",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red12.style.display = "none";
+      }
+      if (this.unit_name == "") {
+        this.$refs.red13.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您的工作单位",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red13.style.display = "none";
+      }
+
+      if (this.unit_tel == "") {
+        this.$refs.red14.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写单位电话",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red14.style.display = "none";
+      }
+      if (this.unit_address == "") {
+        this.$refs.red15.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写公司地址",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red15.style.display = "none";
+      }
+      if (this.is_civil == "") {
+        this.$refs.red16.style.display = "block";
+        this.$dialog.toast({
+          mes: "您是否是公务员",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red16.style.display = "none";
+      }
+      if (this.position_level == "") {
+        this.$refs.red17.style.display = "block";
+        this.$dialog.toast({
+          mes: "请选择职位级别",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red17.style.display = "none";
+      }
+      if (this.branch == "") {
+        this.$refs.red017.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写部门",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red017.style.display = "none";
+      }
+      if (this.job == "") {
+        this.$refs.red18.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写职务",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red18.style.display = "none";
+      }
+      if (this.initia_n == "") {
+        this.$refs.red19.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写入职年份",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red19.style.display = "block";
+      }
+      if (this.initia_y == "") {
+        this.$refs.red19.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写入职月份",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red19.style.display = "none";
+      }
+      // if (this.initia_r == "") {
+      //   this.$refs.red19.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请填写入职日期",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else
+      // {
+      //   this.$refs.red19.style.display = "none";
+      // }
+      if (this.income == "") {
+        this.$refs.red20.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您的月薪",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red20.style.display = "none";
+      }
+      // if (this.marriage == "已婚" || this.marriage == "再婚") {
+      //   if (this.spouse_name == "") {
+      //     this.$refs.red21.style.display = "block";
+      //     this.$dialog.toast({
+      //       mes: "请填写您配偶的姓名",
+      //       timeout: 1500
+      //     });
+      //     return;
+      //   } else {
+      //     this.$refs.red21.style.display = "none";
+      //   }
+      //   if (this.spouse_phone == "") {
+      //     this.$refs.red22.style.display = "block";
+      //     this.$dialog.toast({
+      //       mes: "请填写您配偶的手机号",
+      //       timeout: 1500
+      //     });
+      //     return;
+      //   } else {
+      //     this.$refs.red22.style.display = "none";
+      //   }
+      // }
+      if (this.kinship_name == "") {
+        this.$refs.red24.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您亲属的姓名",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red24.style.display = "none";
+      }
+      if (this.kinship_phone == "") {
+        this.$refs.red25.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您亲属的手机号码",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red25.style.display = "none";
+      }
+      if (this.kinship_relev == "") {
+        this.$refs.red26.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您亲属关系",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red26.style.display = "none";
+      }
+      if (this.work_name == "") {
+        this.$refs.red027.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您同事的姓名",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red027.style.display = "none";
+      }
+      if (this.work_phone == "") {
+        this.$refs.red28.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您同事的电话",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red28.style.display = "none";
+      }
+      // if (this.work_section == "") {
+      //   this.$refs.red29.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请填写您同事的部门",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red29.style.display = "none";
+      // }
+      // if (this.work_job == "") {
+      //   this.$refs.red30.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请填写您同事职务",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red30.style.display = "none";
+      // }
+      if (this.liaison_name == "") {
+        this.$refs.red31.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您朋友的姓名",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red31.style.display = "none";
+      }
+      if (this.liaison_phone == "") {
+        this.$refs.red32.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您朋友的手机号",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red32.style.display = "none";
+      }
+      if (this.liaison_relev == "") {
+        this.$refs.red33.style.display = "block";
+        this.$dialog.toast({
+          mes: "请填写您跟朋友的关系",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red33.style.display = "none";
+      }
+      if (this.is_clear == "") {
+        this.$refs.red34.style.display = "block";
+        //  this.$refs.red33.style.display = "block";
+        this.$dialog.toast({
+          mes: "亲属是否知道贷款",
+          timeout: 1500
+        });
+        return;
+      } else {
+        this.$refs.red34.style.display = "none";
+      }
+
+      // if (this.wages_six == "") {
+      //   this.$refs.red40.style.display = "block";
+      //   //  this.$refs.red33.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请选择工资是否连续发了六个月以上",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red40.style.display = "none";
+      // }
+
+      // if (this.social_six == "") {
+      //   this.$refs.red41.style.display = "block";
+      //   //  this.$refs.red33.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请选择社保是否上了六个月以上",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red41.style.display = "none";
+      // }
+      // if (this.fund_six == "") {
+      //   this.$refs.red42.style.display = "block";
+      //   //  this.$refs.red33.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请选择公积金是否上了六个月以上",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red42.style.display = "none";
+      // }
+      // if (this.finance == "") {
+      //   this.$refs.red43.style.display = "block";
+      //   //  this.$refs.red33.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请输入微粒贷额度",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red43.style.display = "none";
+      // }
+      // if (this.sesame == "") {
+      //   this.$refs.red44.style.display = "block";
+      //   //  this.$refs.red33.style.display = "block";
+      //   this.$dialog.toast({
+      //     mes: "请输入芝麻分",
+      //     timeout: 1500
+      //   });
+      //   return;
+      // } else {
+      //   this.$refs.red44.style.display = "none";
+      // }
+   
       this.isDisable = true;
       await apis
         .add(
@@ -1610,14 +1683,15 @@ export default {
           this.code = res.data.code;
           console.log(res.data.code);
           this.isDisable = false;
-          window.localStorage.clear();
-          if (res.data.code === 1) {
+         
+          if (res.data.code == 1) {
             // loading.close();
             this.$dialog.toast({
               mes: "提交成功",
               icon: "success",
               timeout: 1500
             });
+             window.localStorage.clear();
           }
         });
     }

@@ -3,7 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
+var Version = new Date().getTime();
 module.exports = {
   dev: {
 
@@ -35,7 +35,17 @@ module.exports = {
 
     cssSourceMap: true
   },
-
+  
+  //  output: {
+ 
+  //           path: config.build.assetsRoot,
+     
+  //            filename: utils.assetsPath('js/[name].[chunkhash].' +Version+ '.js'),
+     
+  //           chunkFilename: utils.assetsPath('js/[id].[chunkhash].' +Version+ '.js')
+     
+  //       },
+   
   build: {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
