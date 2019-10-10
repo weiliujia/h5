@@ -17,6 +17,13 @@
       <el-input v-model="name" class="userform_inp1" ref="inpred" v-on:blur="names"></el-input>
       <p class="txt_red" ref="red">请填写此项</p>
     </div>
+      <div class="userform_item1">
+      <p class="userform_span1">
+        年龄
+        <span class="red">*</span>
+      </p>
+      <el-input v-model="age" class="userform_inp1" v-on:blur="ages"></el-input>
+    </div>
     <div class="userform_item1">
       <p class="userform_span1">
         身份证号码
@@ -790,6 +797,7 @@ export default {
       value4: "",
 
       name: "",
+      age:'',
       idcard: "",
       phone: "",
       quoat: "",
@@ -882,6 +890,7 @@ export default {
     console.log(this.radio);
 
     this.name = localStorage.getItem("name")||"";
+    this.age = localStorage.getItem("age")||"";
     this.idcard = localStorage.getItem("idcard")||"";
     this.phone = localStorage.getItem("phone")||"";
     this.quoat = localStorage.getItem("quoat")||"";
@@ -991,6 +1000,9 @@ export default {
       let a = event.value;
       localStorage.setItem("name", event.target.value);
       
+    },
+     ages(event) {
+      localStorage.setItem("age", event.target.value);
     },
     idcards(event) {
       localStorage.setItem("idcard", event.target.value);
@@ -1109,6 +1121,20 @@ export default {
         console.log(this.$refs.inpred);
         this.$refs.red.style.display = "none";
       }
+        if (this.age == "") {
+        console.log(1222222222)
+        // this.$refs.red.style.display = "block";
+        // this.$refs.inpred.style.border = " 1px solid red !important";
+        this.$dialog.toast({
+          mes: "请输入年龄",
+          timeout: 1500
+        });
+        return;
+      } else {
+        // console.log(this.$refs.inpred);
+        // this.$refs.red.style.display = "none";
+      }
+      
       if (this.idcard == "") {
          console.log(1222)
         this.$refs.red1.style.display = "block";
@@ -1635,6 +1661,7 @@ export default {
             uid: this.uid,
             // uid:1,
             name: this.name,
+            age:this.age,
             idcard: this.idcard,
             phone: this.phone,
             quoat: this.quoat,

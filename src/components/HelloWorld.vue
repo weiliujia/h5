@@ -16,6 +16,13 @@
       </p>
       <el-input v-model="name" class="userform_inp1"></el-input>
     </div>
+       <!-- <div class="userform_item1">
+      <p class="userform_span1">
+        年龄
+        <span class="red">*</span>
+      </p>
+      <el-input v-model="age" class="userform_inp1"></el-input>
+    </div> -->
     <div class="userform_item1">
       <p class="userform_span1">
         身份证号码
@@ -600,6 +607,7 @@ export default {
       value4: "",
 
       name: "",
+      age:'',
       idcard: "",
       phone: "",
       quoat: "",
@@ -689,6 +697,13 @@ export default {
       if (this.name === "") {
         this.$dialog.toast({
           mes: "请输入姓名",
+          timeout: 1500
+        });
+        return;
+      }
+       if (this.age === "") {
+        this.$dialog.toast({
+          mes: "请输入年龄",
           timeout: 1500
         });
         return;
@@ -944,6 +959,7 @@ export default {
             Qs.stringify({
               uid: acode,
               name: this.name,
+               age: this.age,
               idcard: this.idcard,
               phone: this.phone,
               quoat: this.quoat,
